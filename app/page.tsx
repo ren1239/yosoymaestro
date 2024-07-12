@@ -1,13 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
 import ImageSlider from "./component/ImageSlider";
-import PixelScroll from "./component/PixelScroll";
 import Header from "./component/Header/Header";
 import Menu from "./component/Menu/Menu";
-import PixelBackground from "./component/PixelBackground/PixelBackground";
+// import PixelBackground from "./component/PixelBackground/PixelBackground";
 import TextRaise from "./component/TextRaise";
 import Lenis from "@studio-freight/lenis";
 import { useMotionValue, motion, useSpring } from "framer-motion";
+
+import dynamic from "next/dynamic";
+
+const PixelBackground = dynamic(
+  () => import("./component/PixelBackground/PixelBackground"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Home() {
   const [menuIsActive, setMenuIsActive] = useState(false);
