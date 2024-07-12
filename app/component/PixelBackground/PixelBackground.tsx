@@ -11,18 +11,18 @@ const anim = {
   initial: {
     opacity: 0,
   },
-  open: (i) => ({
+  open: (i: any) => ({
     opacity: 1,
     transition: { duration: 0, delay: 0.03 * i, easeInOut },
   }),
-  closed: (i) => ({
+  closed: (i: any) => ({
     opacity: 0,
     transition: { duration: 0, delay: 0.03 * i, easeInOut },
   }),
 };
 
 // Shuffle logic - shuffle the pixels with an algorithm
-const shuffle = (a) => {
+const shuffle = (a: any) => {
   var j, x, i;
   for (i = a.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1));
@@ -38,7 +38,7 @@ const getBlocks = (menuIsActive: boolean) => {
   const amountOfBlocks = Math.ceil(window.innerHeight / blockSize);
   const delay = shuffle([...Array(amountOfBlocks)].map((_, i) => i));
 
-  return delay.map((randomDelay, i) => (
+  return delay.map((randomDelay: any, i: any) => (
     <motion.div
       variants={anim}
       animate={menuIsActive ? "open" : "closed"}
