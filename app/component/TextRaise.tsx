@@ -48,15 +48,6 @@ const LetterStagger = ({
       )
     );
 
-  // Log the random transformation values for each letter
-  yTransforms.forEach((y, i) => {
-    useMotionValueEvent(y, "change", (latest) => {
-      console.log(
-        `Letter: ${children[i]}, Index: ${i}, Random Value: ${latest}`
-      );
-    });
-  });
-
   return (
     <h2 className="flex">
       {children.split("").map((letter, i) => (
