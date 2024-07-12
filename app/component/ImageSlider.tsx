@@ -53,6 +53,7 @@ const Collection = () => {
     <div className={"pl-5 flex gap-5"}>
       {Images.map((image, i) => (
         <motion.div
+          key={i}
           whileHover={{ scale: 1.05, transition: { ease: easeInOut } }}
           className="w-[240px] h-[340px] "
         >
