@@ -14,13 +14,7 @@ export default function TextRaise() {
     offset: ["start start", "end start"],
   });
 
-  const yTransformUpdated = [];
-
-  const yTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, Math.floor(Math.random() * -175) + 25]
-  );
+  const yTransform = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
     <div
@@ -32,7 +26,11 @@ export default function TextRaise() {
         whileInView={{ y: "37%", transition: { duration: 1.5, delay: 0.5 } }}
         className="text-7xl md:text-[16rem] font-bold text-center"
       >
-        <LetterStagger scrollYProgress={scrollYProgress}>MAESTRO</LetterStagger>
+        <motion.div style={{ y: yTransform }}>
+          <LetterStagger scrollYProgress={scrollYProgress}>
+            MAESTRO
+          </LetterStagger>
+        </motion.div>
       </motion.div>
     </div>
   );
@@ -46,20 +44,20 @@ const LetterStagger = ({
   scrollYProgress: MotionValue;
 }) => {
   // Create an array of y transforms for each letter
-  const yTransforms = children
-    .split("")
-    .map(() =>
-      useTransform(
-        scrollYProgress,
-        [0, 1],
-        [0, Math.floor(Math.random() * -175) + 25]
-      )
-    );
+  // const yTransforms = children
+  //   .split("")
+  //   .map(() =>
+  //     useTransform(
+  //       scrollYProgress,
+  //       [0, 1],
+  //       [0, Math.floor(Math.random() * -175) + 25]
+  //     )
+  //   );
 
   return (
     <h2 className="flex">
       {children.split("").map((letter, i) => (
-        <motion.p style={{ y: yTransforms[i] }} key={i}>
+        <motion.p style={{}} key={i}>
           {letter}
         </motion.p>
       ))}
