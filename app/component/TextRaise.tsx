@@ -37,28 +37,33 @@ const LetterStagger = ({
   children: string;
   scrollYProgress: MotionValue;
 }) => {
+  // Create an array of y transforms for each letter
+  const yTransforms = children
+    .split("")
+    .map(() =>
+      useTransform(
+        scrollYProgress,
+        [0, 1],
+        [0, Math.floor(Math.random() * -175) + 25]
+      )
+    );
+
+  // Log the random transformation values for each letter
+  yTransforms.forEach((y, i) => {
+    useMotionValueEvent(y, "change", (latest) => {
+      console.log(
+        `Letter: ${children[i]}, Index: ${i}, Random Value: ${latest}`
+      );
+    });
+  });
+
   return (
     <h2 className="flex">
-      {children.split("").map((letter, i) => {
-        const y = useTransform(
-          scrollYProgress,
-          [0, 1],
-          [0, Math.floor(Math.random() * -175) + 25]
-        );
-
-        // Log the random transformation values for each letter
-        useMotionValueEvent(y, "change", (latest) => {
-          console.log(
-            `Letter: ${letter}, Index: ${i}, Random Value: ${latest}`
-          );
-        });
-
-        return (
-          <motion.p style={{ y: y }} key={i}>
-            {letter}
-          </motion.p>
-        );
-      })}
+      {children.split("").map((letter, i) => (
+        <motion.p style={{ y: yTransforms[i] }} key={i}>
+          {letter}
+        </motion.p>
+      ))}
     </h2>
   );
 };
