@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import Collection from "./Collection"
 
-import { Images } from "../lib/ImageArray";
+
 
 import {
   motion,
@@ -10,10 +11,8 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 
-import Image from "next/image";
-import { easeInOut } from "framer-motion/dom";
-
 export default function ImageSlider() {
+  
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -23,9 +22,9 @@ export default function ImageSlider() {
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const [yValue, setYValue] = useState<number>(0);
 
-  useMotionValueEvent(scrollX, "change", (latest) => {
-    console.log("scrollX", latest);
-  });
+  // useMotionValueEvent(scrollX, "change", (latest) => {
+  //   console.log("scrollX", latest);
+  // });
 
   useMotionValueEvent(scaleY, "change", (latest) => {
     setYValue(Math.round(latest));
@@ -48,31 +47,6 @@ export default function ImageSlider() {
   );
 }
 
-const Collection = () => {
-  return (
-    <div className={"pl-5 flex gap-5"}>
-      {Images.map((image, i) => (
-        <motion.div
-          key={i}
-          whileHover={{ scale: 1.05, transition: { ease: easeInOut } }}
-          className="w-[240px] h-[340px] "
-        >
-          <Image
-            className="-translate-y-1/2 transition-transform duration-300"
-            src={Images[i]}
-            alt="image"
-            width={240}
-            height={340}
-          />
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
-const SingleItem = ({ bgProp }: { bgProp: string }) => {
-  return <div className={` w-[240px] h-[340px] ${bgProp} -translate-y-1/2`} />;
-};
 
 const ScrollWheel = ({ scaleY }: { scaleY: any }) => {
   const lineLength = 30;
